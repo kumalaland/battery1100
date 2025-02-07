@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battery Indicator</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background: bisque;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font-family: Arial, sans-serif;
+        padding: 20px;
+    }
+
+    /* Контейнер батареи */
+    .battery-container {
+        position: relative;
+        width: 200px;
+        height: 450px;
+    }
+
+    /* Верхняя часть (контакт) */
+    .battery-top {
+        width: 35px;
+        height: 15px;
+        background: #333;
+        margin: 0 auto;
+        border-radius: 2px 2px 0 0;
+    }
+
+    /* Основной корпус */
+    .battery-body {
+        width: 100%;
+        height: 400px;
+        border: 3px solid #333;
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+        background: white;
+    }
+
+    /* Уровень заряда */
+    .charge-level {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 50%; /* Начальное значение */
+        background: #4CAF50;
+        transition: height 0.3s ease;
+    }
+
+    /* Текст с процентом */
+    .percentage-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2.5em;
+        font-weight: bold;
+        z-index: 1;
+        color: #333;
+    }
+
+    /* Дата */
+    .date-text {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 1.1em;
+        color: #666;
+    }
+
+    /* Адаптивность */
+    @media (max-width: 480px) {
+        .battery-container {
+            width: 150px;
+            height: 340px;
+        }
+
+        .battery-body {
+            height: 300px;
+        }
+
+        .percentage-text {
+            font-size: 2em;
+        }
+
+        .battery-top {
+            width: 25px;
+            height: 12px;
+        }
+
+        .date-text {
+            font-size: 0.9em;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class="battery-container">
+        <div class="battery-top"></div>
+        <div class="battery-body">
+            <div class="charge-level"></div>
+            <div class="percentage-text"></div>
+        </div>
+        <p class="date-text">last uptade:<br> DMY:08 feb 2025 <br>(--:-- by China time) </p>
+    </div>
+
+    <script>
+    // Элементы для обновления
+    let chargeLevel = document.querySelector('.charge-level');
+    let percentageText = document.querySelector('.percentage-text');
+
+    // Функция для обновления батареи
+    function updateBattery(percentage) {
+        // Ограничиваем процент от 0 до 100
+        percentage = Math.min(100, Math.max(0, percentage));
+
+        // Обновляем уровень заряда
+        chargeLevel.style.height = `${percentage}%`;
+
+        // Обновляем текст с процентом
+        percentageText.textContent = `${percentage}%`;
+    }
+
+    // Установите нужный процент здесь
+    let percentage = 45; // Измените это значение на нужное
+    updateBattery(percentage);
+    </script>
+</body>
+</html>
